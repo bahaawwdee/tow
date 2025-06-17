@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>Toracer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+      color: #00ff88;
+      padding: 30px;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background-color: #111;
+      border: 1px solid #00ff88;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 0 20px #00ff88;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #00ff88;
+    }
+    #input-area {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    input {
+      padding: 12px;
+      width: 80%;
+      border: 1px solid #00ff88;
+      background: #000;
+      color: #00ff88;
+      font-size: 18px;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 12px 25px;
+      font-size: 18px;
+      background-color: #00ff88;
+      border: none;
+      color: #000;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .task {
+      margin-bottom: 25px;
+    }
+    .task p {
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+    .progress-bar {
+      width: 100%;
+      background-color: #333;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .progress {
+      height: 14px;
+      width: 0%;
+      background: linear-gradient(90deg, #00ff88, #00ffaa);
+      transition: width 0.5s ease;
+    }
+    #final-result {
+      background-color: #000;
+      padding: 20px;
+      border: 1px solid #00ff88;
+      border-radius: 10px;
+      margin-top: 30px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Toracer PRO</h1>
+
+    <div id="input-area">
+      <input type="text" id="fbid" placeholder="ادخل ID الحساب المستهدف">
+      <br>
+      <button onclick="startAttack()">ابدأ</button>
+    </div>
+
+    <div id="tasks-area"></div>
+
+    <div id="final-result">
+      <h2>🔓 تم الوصول إلى الحساب بنجاح!</h2>
+      <p><strong>البريد أو اسم المستخدم:</strong> baha.hacker21</p>
+      <p><strong>كلمة المرور:</strong> Hazem@123x!</p>
+      <p><strong>آخر دخول:</strong> 17 يونيو 2025 - 01:44 من Cairo, Egypt</p>
+      <p><strong>حالة الحساب:</strong> نشط ✅</p>
+    </div>
+  </div>
+
+  <script>
+    const tasks = [
+      "الاتصال بخوادم فيسبوك...",
+      "تشغيل شبكة Tor الآمنة...",
+      "فتح نفق مشفر للدارك ويب...",
+      "تنزيل قواعد بيانات 2024 المسربة...",
+      "تحليل البيانات وربطها بـ ID المقدم...",
+      "تشغيل هجوم Dictionary + Brute Force...",
+      "محاكاة الدخول عبر Facebook API...",
+      "فك التشفير عبر خوارزمية MD5+SHA256...",
+      "تحميل أدوات اختراق مخصصة...",
+      "تحليل الأنشطة والروابط المتصلة بالحساب...",
+      "استخراج الجلسة النهائية للحساب...",
+      "تأكيد الوصول وكشف كلمة السر..."
+    ];
+
+    const totalTime = 180000; // 3 دقائق
+    const taskTime = totalTime / tasks.length;
+
+    function startAttack() {
+      const id = document.getElementById("fbid").value.trim();
+      if (!id) return alert("يرجى إدخال ID الحساب");
+
+      document.getElementById("input-area").style.display = "none";
+
+      const area = document.getElementById("tasks-area");
+
+      let index = 0;
+
+      function showNextTask() {
+        if (index >= tasks.length) {
+          document.getElementById("final-result").style.display = "block";
+          return;
+        }
+
+        const task = document.createElement("div");
+        task.className = "task";
+
+        const label = document.createElement("p");
+        label.textContent = `[${index + 1}/${tasks.length}] ${tasks[index]}`;
+
+        const barContainer = document.createElement("div");
+        barContainer.className = "progress-bar";
+
+        const progress = document.createElement("div");
+        progress.className = "progress";
+        barContainer.appendChild(progress);
+
+        task.appendChild(label);
+        task.appendChild(barContainer);
+        area.appendChild(task);
+
+        let progressValue = 0;
+        const interval = setInterval(() => {
+          if (progressValue >= 100) {
+            clearInterval(interval);
+            index++;
+            showNextTask();
+          } else {
+            progressValue += Math.random() * 10;
+            progress.style.width = Math.min(progressValue, 100) + "%";
+          }
+        }, taskTime / 10);
+      }
+
+      showNextTask();
+    }
+  </script>
+</body>
+</html>
